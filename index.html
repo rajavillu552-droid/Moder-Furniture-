@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Furniture - Elevate Your Space</title>
+  <style>
+    :root {
+      --primary-color: #1a1a1a;
+      --accent-color: #c5a880;
+      --bg-light: #f8f6f3;
+      --card-bg: #ffffff;
+      --text-dark: #111111;
+      --text-muted: #666666;
+      --border-color: #e5e0d8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      padding-bottom: 40px;
+    }
+
+    /* Top Announcement Bar */
+    .announcement-bar {
+      background-color: var(--primary-color);
+      color: var(--accent-color);
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 18px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-logo {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--primary-color);
+      position: relative;
+    }
+
+    .cart-count-badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: var(--accent-color);
+      color: white;
+      font-size: 10px;
+      padding: 2px 5px;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+
+    /* Search Bar Overlay */
+    .search-overlay {
+      display: none;
+      padding: 12px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .search-overlay.active {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%), 
+                  url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      max-width: 450px;
+      color: #e0e0e0;
+      margin-bottom: 20px;
+    }
+
+    .hero-btn {
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    /* Category Filter Pills */
+    .categories-bar {
+      display: flex;
+      gap: 10px;
+      padding: 20px 24px 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .category-chip {
+      padding: 8px 18px;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+      color: var(--text-dark);
+      font-weight: 500;
+    }
+
+    .category-chip.active {
+      background: var(--primary-color);
+      color: #fff;
+      border-color: var(--primary-color);
+    }
+
+    /* Section Title */
+    .section-header {
+      padding: 24px 24px 12px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .product-img-wrap {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-category {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 6px 0 8px;
+      line-height: 1.3;
+      color: var(--primary-color);
+    }
+
+    .price-box {
+      margin-top: auto;
+      margin-bottom: 10px;
+    }
+
+    .current-price {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--primary-color);
+    }
+
+    .old-price {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+
+    .add-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 10px 0;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    /* Views Framework */
+    .view-page {
+      display: none;
+      padding: 24px;
+      background: #fff;
+      min-height: 70vh;
+    }
+
+    .view-page.active {
+      display: block;
+    }
+
+    /* Policy Content */
+    .policy-box {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .policy-box h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: var(--primary-color);
+    }
+
+    .policy-box p {
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    /* Form Styles */
+    .checkout-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    /* Modern Slide-over Cart Drawer */
+    .cart-drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 400;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-drawer-overlay.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 320px;
+      height: 100%;
+      background: #fff;
+      z-index: 500;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .cart-drawer.active {
+      right: 0;
+    }
+
+    .cart-drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 15px;
+    }
+
+    .close-drawer {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Premium Toast Notification */
+    .toast-notification {
+      position: fixed;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary-color);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 13px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 600;
+      transition: bottom 0.4s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast-notification.active {
+      bottom: 30px;
+    }
+
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      bottom: 24px;
+      right: 24px;
+      background-color: #25d366;
+      color: #fff;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 26px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: #aaa;
+      padding: 40px 24px 20px;
+      margin-top: 60px;
+      font-size: 13px;
+    }
+
+    footer h4 {
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 14px;
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="announcement-bar">
+    ✨ Premium Handcrafted Furniture - Free Shipping On Orders Over ৳10,000
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="brand-logo" onclick="switchView('home')">Modern Furniture</div>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleSearch()">🔍</button>
+      <button class="icon-btn" onclick="openCartDrawer()">
+        🛒 <span class="cart-count-badge" id="cart-badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="search-bar">
+    <input type="text" class="search-input" id="search-input" placeholder="Search chairs, tables, beds..." onkeyup="filterSearch()">
+  </div>
+
+  <!-- HOME VIEW -->
+  <div id="home-view" class="view-page active" style="padding:0;">
+    <div class="hero">
+      <h1>ELEGANCE REDEFINED</h1>
+      <p>Luxury handcrafted furniture built with timeless craftsmanship for contemporary living.</p>
+      <button class="hero-btn" onclick="scrollToProducts()">Explore Collection</button>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="categories-bar">
+      <div class="category-chip active" onclick="filterCategory('All', this)">All Furniture</div>
+      <div class="category-chip" onclick="filterCategory('Living', this)">Living Room</div>
+      <div class="category-chip" onclick="filterCategory('Bedroom', this)">Bedroom</div>
+      <div class="category-chip" onclick="filterCategory('Dining', this)">Dining</div>
+      <div class="category-chip" onclick="filterCategory('Office', this)">Office</div>
+    </div>
+
+    <div class="section-header">
+      <h2 class="section-title" id="grid-title">All Products</h2>
+    </div>
+
+    <!-- 15+ Furniture Products Grid -->
+    <div class="product-grid" id="product-list"></div>
+  </div>
+
+  <!-- CHECKOUT VIEW -->
+  <div id="checkout-view" class="view-page">
+    <h2 style="font-size:24px; margin-bottom:20px; text-align:center;">Shipping & Checkout</h2>
+    <form class="checkout-form" onsubmit="submitOrder(event)">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="cust-email" required value="khankulsuma29@gmail.com">
+      </div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="cust-name" required placeholder="Richa Man">
+      </div>
+      <div class="form-group">
+        <label>Full Delivery Address</label>
+        <input type="text" id="cust-address" required placeholder="House #, Road #, City">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="cust-phone" required placeholder="+8801753217083">
+      </div>
+      <div class="form-group">
+        <label>Payment Method</label>
+        <select disabled>
+          <option>Cash On Delivery / Bank Transfer</option>
+        </select>
+      </div>
+      <button type="submit" class="add-btn" style="padding:14px; background:var(--accent-color);">Confirm Order</button>
+    </form>
+  </div>
+
+  <!-- PRIVACY POLICY VIEW -->
+  <div id="privacy-view" class="view-page">
+    <div class="policy-box">
+      <h2>Privacy Policy</h2>
+      <p>At Modern Furniture, we respect your privacy and are committed to protecting your personal data.</p>
+      <p><strong>Information Collection:</strong> Details are collected purely to dispatch orders accurately across Bangladesh.</p>
+    </div>
+  </div>
+
+  <!-- TERMS VIEW -->
+  <div id="terms-view" class="view-page">
+    <div class="policy-box">
+      <h2>Terms of Service</h2>
+      <p>By browsing or purchasing from Modern Furniture, you agree to comply with our terms and conditions.</p>
+    </div>
+  </div>
+
+  <!-- Modern Slide-Over Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cart-overlay" onclick="closeCartDrawer()"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3 style="font-size: 16px;">Your Shopping Bag</h3>
+      <button class="close-drawer" onclick="closeCartDrawer()">✕</button>
+    </div>
+    <div id="drawer-cart-items" style="flex-grow:1; overflow-y:auto; margin-top:15px;"></div>
+    <div style="border-top:1px solid var(--border-color); padding-top:15px;">
+      <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:16px;">
+        <span>Total:</span>
+        <span>৳<span id="drawer-total-price">0</span> BDT</span>
+      </div>
+      <button class="add-btn" style="margin-top:15px; padding:12px; background:var(--accent-color);" onclick="goToCheckout()">Checkout Now</button>
+    </div>
+  </div>
+
+  <!-- Custom Floating Toast Notification -->
+  <div class="toast-notification" id="toast-msg">
+    <span>✔</span> Item added to your shopping bag
+  </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/8801753217083" class="whatsapp-float" target="_blank">💬</a>
+
+  <!-- Footer -->
+  <footer>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px;">
+      <div>
+        <h4>MODERN FURNITURE</h4>
+        <p style="color:#888;">Crafting premium living spaces across Bangladesh.</p>
+        <p style="margin-top:10px; color:#888;">Contact: +8801753217083</p>
+      </div>
+      <div>
+        <h4>POLICIES</h4>
+        <ul class="footer-links">
+          <li><a onclick="switchView('privacy')">Privacy Policy</a></li>
+          <li><a onclick="switchView('terms')">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:30px; border-top:1px solid #333; padding-top:15px; font-size:11px;">
+      © 2026 Modern Furniture. All Rights Reserved.
+    </p>
+  </footer>
+
+  <script>
+    const productsData = [
+      { id: 1, name: "Velvet Chesterfield 3-Seater Sofa", category: "Living", price: 42000, oldPrice: 48000, img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=400&q=80" },
+      { id: 2, name: "Scandinavian Wooden Lounge Chair", category: "Living", price: 14500, oldPrice: 16000, img: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=400&q=80" },
+      { id: 3, name: "Solid Teak Wood Dining Table", category: "Dining", price: 38000, oldPrice: 42000, img: "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?auto=format&fit=crop&w=400&q=80" },
+      { id: 4, name: "King Size Walnut Bed Frame", category: "Bedroom", price: 52000, oldPrice: 58000, img: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=400&q=80" },
+      { id: 5, name: "Minimalist Executive Office Desk", category: "Office", price: 22000, oldPrice: 25000, img: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=400&q=80" },
+      { id: 6, name: "Ergonomic Mesh Office Chair", category: "Office", price: 11500, oldPrice: 13000, img: "https://images.unsplash.com/photo-1580481072645-022f9a6d83d0?auto=format&fit=crop&w=400&q=80" },
+      { id: 7, name: "Marble Top Coffee Table", category: "Living", price: 16500, oldPrice: 19000, img: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=400&q=80" },
+      { id: 8, name: "Modern Oak Wardrobe 3-Door", category: "Bedroom", price: 48000, oldPrice: 54000, img: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=400&q=80" },
+      { id: 9, name: "Upholstered Dining Chair (Set of 2)", category: "Dining", price: 12000, oldPrice: 14000, img: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80" },
+      { id: 10, name: "Rustic Wooden Bookshelf Cabinet", category: "Office", price: 19500, oldPrice: 22000, img: "https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=400&q=80" },
+      { id: 11, name: "Luxury Dressing Table & Mirror", category: "Bedroom", price: 26000, oldPrice: 29000, img: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=400&q=80" },
+      { id: 12, name: "L-Shaped Corner Fabric Sofa", category: "Living", price: 58000, oldPrice: 65000, img: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=400&q=80" },
+      { id: 13, name: "Compact TV Console Cabinet", category: "Living", price: 15000, oldPrice: 17500, img: "https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?auto=format&fit=crop&w=400&q=80" },
+      { id: 14, name: "Wooden Nightstand Bedside Table", category: "Bedroom", price: 6500, oldPrice: 7800, img: "https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?auto=format&fit=crop&w=400&q=80" },
+      { id: 15, name: "Bar Height Wooden Stool", category: "Dining", price: 5500, oldPrice: 6500, img: "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80" }
+    ];
+
+    let cartList = [];
+
+    function renderProducts(items) {
+      const container = document.getElementById('product-list');
+      container.innerHTML = '';
+
+      items.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <div class="product-img-wrap">
+            <img src="${p.img}" alt="${p.name}" class="product-img">
+          </div>
+          <div class="product-info">
+            <span class="product-category">${p.category}</span>
+            <div class="product-name">${p.name}</div>
+            <div class="price-box">
+              <span class="current-price">৳${p.price.toLocaleString()}</span>
+              <span class="old-price">৳${p.oldPrice.toLocaleString()}</span>
+            </div>
+            <button class="add-btn" onclick="addToCart(${p.id})">Add To Bag</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function addToCart(id) {
+      const prod = productsData.find(p => p.id === id);
+      const exist = cartList.find(c => c.id === id);
+
+      if (exist) {
+        exist.qty += 1;
+      } else {
+        cartList.push({ ...prod, qty: 1 });
+      }
+
+      updateCartBadge();
+      showToast();
+      openCartDrawer();
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast-msg');
+      toast.classList.add('active');
+      setTimeout(() => {
+        toast.classList.remove('active');
+      }, 2500);
+    }
+
+    function updateCartBadge() {
+      const badge = document.getElementById('cart-badge');
+      const totalQty = cartList.reduce((sum, item) => sum + item.qty, 0);
+      badge.innerText = totalQty;
+      renderDrawerCart();
+    }
+
+    function openCartDrawer() {
+      document.getElementById('cart-overlay').classList.add('active');
+      document.getElementById('cart-drawer').classList.add('active');
+    }
+
+    function closeCartDrawer() {
+      document.getElementById('cart-overlay').classList.remove('active');
+      document.getElementById('cart-drawer').classList.remove('active');
+    }
+
+    function renderDrawerCart() {
+      const container = document.getElementById('drawer-cart-items');
+      const totalPrice = document.getElementById('drawer-total-price');
+      container.innerHTML = '';
+      let sum = 0;
+
+      if (cartList.length === 0) {
+        container.innerHTML = '<p style="color:#777; text-align:center; padding-top:20px;">Your bag is empty.</p>';
+      } else {
+        cartList.forEach(item => {
+          sum += item.price * item.qty;
+          container.innerHTML += `
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:10px 0;">
+              <div>
+                <strong style="font-size:13px;">${item.name}</strong><br>
+                <small style="color:#666;">৳${item.price.toLocaleString()} x ${item.qty}</small>
+              </div>
+              <div style="font-weight:bold; font-size:13px;">৳${(item.price * item.qty).toLocaleString()}</div>
+            </div>
+          `;
+        });
+      }
+      totalPrice.innerText = sum.toLocaleString();
+    }
+
+    function goToCheckout() {
+      closeCartDrawer();
+      switchView('checkout');
+    }
+
+    function filterCategory(cat, el) {
+      document.querySelectorAll('.category-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('grid-title').innerText = cat === 'All' ? 'All Products' : cat + ' Furniture';
+
+      if (cat === 'All') {
+        renderProducts(productsData);
+      } else {
+        const filtered = productsData.filter(p => p.category === cat);
+        renderProducts(filtered);
+      }
+    }
+
+    function toggleSearch() {
+      const bar = document.getElementById('search-bar');
+      bar.classList.toggle('active');
+    }
+
+    function filterSearch() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const filtered = productsData.filter(p => p.name.toLowerCase().includes(q));
+      renderProducts(filtered);
+    }
+
+    function switchView(view) {
+      document.querySelectorAll('.view-page').forEach(v => v.classList.remove('active'));
+      document.getElementById(view + '-view').classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function scrollToProducts() {
+      document.querySelector('.categories-bar').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function submitOrder(e) {
+      e.preventDefault();
+      if (cartList.length === 0) {
+        alert('Bag is empty!');
+        return;
+      }
+
+      const email = document.getElementById('cust-email').value;
+      const name = document.getElementById('cust-name').value;
+      const phone = document.getElementById('cust-phone').value;
+      const address = document.getElementById('cust-address').value;
+      const total = document.getElementById('drawer-total-price').innerText;
+
+      const items = cartList.map(i => `- ${i.name} (x${i.qty})`).join('\n');
+
+      const subject = encodeURIComponent("Order from " + name);
+      const body = encodeURIComponent(
+        `NEW FURNITURE ORDER\n\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nEmail: ${email}\n\nItems:\n${items}\n\nTotal: ৳${total} BDT`
+      );
+
+      window.location.href = `mailto:khankulsuma29@gmail.com?subject=${subject}&body=${body}`;
+      cartList = [];
+      updateCartBadge();
+      switchView('home');
+    }
+
+    renderProducts(productsData);
+  </script>
+</body>
+</html>
